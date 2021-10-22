@@ -4,18 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Controller.MainActivity"
     android:orientation="vertical">
 
 
     <!-- Min knapp för att lägga till en note-->
-
     <ListView
         android:id="@+id/lv_list_notes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_weight="1"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -3,4 +3,6 @@
     <string name="notes_title">Notes</string>
     <string name="enter_text">Enter text</string>
     <string name="enter_title">Enter title</string>
+    <string name="toast_error">Enter title and text</string>
+    <string name="toast_save">Saved</string>
 </resources>
