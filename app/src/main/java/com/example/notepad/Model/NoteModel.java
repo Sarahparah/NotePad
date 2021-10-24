@@ -65,6 +65,9 @@ public class NoteModel {
         }
 
     }
+
+    //här tar vi array listan och connectar den med vår folder vi skapade i saveData metoden.
+
     public ArrayList <String> loadData(){
         
         ArrayList <String> noteTitles = new ArrayList<>();
@@ -89,6 +92,7 @@ public class NoteModel {
         return noteTitles;
         
     }
+
     public String loadNoteText(String title){
         String noteText = "";
 
