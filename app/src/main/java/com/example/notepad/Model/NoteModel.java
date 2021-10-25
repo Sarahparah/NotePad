@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.notepad.Controller.EditActivity;
+import com.example.notepad.R;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -37,35 +38,28 @@ public class NoteModel {
 
             }
 
-        }catch (Exception e){
-
-        }
-
+        }catch (Exception e){ }
     }
 
     //Här sker allt som har med sparning stt göra, tar string ifrån edit till classen notemodel
 
-    public void saveData(String savedTitleName, String savedTextInput,String toastError, String toastSaved) {
+    public void saveData(String savedTitleName, String savedTextInput) {
 
         if (TextUtils.isEmpty(savedTitleName) || TextUtils.isEmpty(savedTextInput)) {
-            Toast.makeText(activity, toastError, Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, R.string.toast_error, Toast.LENGTH_LONG).show();
         } else {
 
             try {
-
                 File fileName = new File(folder, savedTitleName);
                 FileWriter writer = new FileWriter(fileName);
                 writer.append(savedTextInput);
                 writer.close();
-            } catch (IOException e) {
-
-            }
-            Toast.makeText(activity,toastSaved, Toast.LENGTH_LONG).show();
+            } catch (IOException e) { }
+            Toast.makeText(activity, R.string.toast_save, Toast.LENGTH_LONG).show();
 
         }
 
     }
-
     //här tar vi array listan och connectar den med vår folder vi skapade i saveData metoden.
 
     public ArrayList <String> loadData(){
@@ -77,7 +71,7 @@ public class NoteModel {
             File [] files = folder.listFiles();
             for (File currentFile: files) {
 
-               // Date date = new Date(currentFile.lastModified());
+               //Date date = new Date(currentFile.lastModified());
                 //String creationTime = date.toString();
                  String title = currentFile.getName();
                 //title += " - " + creationTime;
@@ -100,7 +94,8 @@ public class NoteModel {
             File file = new File(folder, title );
 
             Scanner scanner = new Scanner(file);
-            while (scanner.hasNext()){      //hasNext retunerar en true eller false.
+            //hasNext retunerar en true eller false.
+            while (scanner.hasNext()){
                 noteText += scanner.nextLine() ; //"\n"
             }
         }catch(Exception e){
@@ -110,8 +105,16 @@ public class NoteModel {
 
     }
 
+    public void deleteNote(String title){
+        File file = new File(folder, title);
+        if( file.exists()){
+            file.delete();
 
 
+        }
+
+
+    }
 
     }
 

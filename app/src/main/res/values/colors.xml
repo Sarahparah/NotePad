@@ -11,4 +11,5 @@
     <color name="darker_purple">#9932CC</color>
     <color name="pic_green">#B0223323</color>
     <color name="light_lightPurple">#4AD689E9</color>
+    <color name="background_listview">#37E9B3EF</color>
 </resources>

@@ -43,31 +43,27 @@ public class EditActivity extends AppCompatActivity {
         textInput = findViewById(R.id.et_text);
         titleInput = findViewById(R.id.et_title);
 
-        String toastError = getString(R.string.toast_error);
-        String toastSaved = getString(R.string.toast_save);
-        notemodel = new NoteModel(this); //Skapa nytt objekt av notemodel. this(här) är referensen till EDtiACtivity
+        //Skapa nytt objekt av notemodel. this(här) är referensen till Edit Activity
+        notemodel = new NoteModel(this);
 
         String title = getIntent().getStringExtra("titleKey");
         titleInput.setText(title);
 
-        String noteText = notemodel.loadNoteText(title);      //retunerar  texten som en sträng
+        //retunerar  texten som en sträng
+        String noteText = notemodel.loadNoteText(title);
         textInput.setText(noteText);
 
 
-
-        //savedTitleName = titleInput.getText().toString();
-       // savedTextInput = textInput.getText().toString();
-
         //return button, aktiviteten stängs när image view trycks på
-
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             finish();
             }
         });
 
+        //när man trycker på sparaknappen så omvandlas objektet i EditText till en string först.
+        //Sen kallas saveData ifrån notemodel.
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,19 +71,12 @@ public class EditActivity extends AppCompatActivity {
                 savedTitleName = titleInput.getText().toString();
                 savedTextInput = textInput.getText().toString();
 
-                notemodel.saveData(savedTitleName,savedTextInput,toastError,toastSaved);
+                notemodel.saveData(savedTitleName,savedTextInput);
 
             }
         });
 
     }
-
-    /**
-     * Ville att användaren ej ska kunna spara förren en titel och text skriven.
-     * det som sparas i min mapp kommer vara namnet som användaren skrivit in i ET title.
-     * en toast visas om det saknas parametrar och nör det lyckas sparas
-     *
-     */
 
         }
 

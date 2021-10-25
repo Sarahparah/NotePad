@@ -5,4 +5,5 @@
     <string name="enter_title">Enter title</string>
     <string name="toast_error">Enter title and text</string>
     <string name="toast_save">Saved</string>
+    <string name="delete">Want to delete?</string>
 </resources>

@@ -1,7 +1,9 @@
 package com.example.notepad.Controller;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,12 +24,12 @@ public class MainActivity extends AppCompatActivity {
     ListView notes;
     ImageView addsNotePlus;
 
-
     static ArrayList<String> arrayList = new ArrayList<>();
-    static ArrayAdapter arrayAdapter; //medlar texten til listView
+
+    //medlar texten til listView
+    static ArrayAdapter arrayAdapter;
 
     NoteModel notemodel;
-
 
 
     @Override
@@ -35,17 +37,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //hej.hejsan();
-
         notes = findViewById(R.id.lv_list_notes);
         addsNotePlus = findViewById(R.id.iv_add_note);
 
-        notemodel = new NoteModel(this); //Skapar ett object av klassen Notemodel
-        updateListView();
-
-
-        //String s = getIntent().getStringExtra("display_text");
-        //arrayList.add(s);
+        //Skapar ett object av klassen Notemodel
+        notemodel = new NoteModel(this);
 
 
         addsNotePlus.setOnClickListener(new View.OnClickListener() {
@@ -55,19 +51,44 @@ public class MainActivity extends AppCompatActivity {
                 addsAnotherNote.putExtra("titleKey", "");
 
                 startActivity(addsAnotherNote);
-
             }
         });
 
         notes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TextView textView = (TextView)view;//konverterar view till textView. Talar om för view att det är en textview
+
+                //konverterar view till textView. Talar om för view att det är en textview
+
+                TextView textView = (TextView)view;
                 String title = textView.getText().toString();
 
                 Intent intent = new Intent(MainActivity.this, EditActivity.class);
                 intent.putExtra("titleKey", title);
                 startActivity(intent);
+            }
+        });
+
+        //Delete note when holding title on Main longer
+        notes.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                TextView title = (TextView)view;
+
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle(getString(R.string.delete))
+
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                MainActivity.this.notemodel.deleteNote(title.getText().toString());
+                                updateListView();                 }
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .show();
+
+                return true;
             }
         });
 
